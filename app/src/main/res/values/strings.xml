@@ -1,3 +1,9 @@
 <resources>
+
     <string name="app_name">Eval</string>
+
+    <string name="login_error_signup">Hubo un error por favor intente de nuevo.</string>
+
+    <string name="dialog_loading">Espere un momento &#8230;</string>
+
 </resources>

@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 25
@@ -18,16 +20,60 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            testCoverageEnabled = true
+        }
     }
+
+    flavorDimensions "standard"
+
+    productFlavors {
+        mock {
+            dimension "standard"
+        }
+        prod {
+            dimension "standard"
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://maven.fabric.io/public' }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    compile 'org.jetbrains.anko:anko-sdk15:0.8.3'
+    compile 'org.jetbrains.anko:anko-design:0.8.3'
+    compile 'org.jetbrains.anko:anko-appcompat-v7:0.8.3'
+
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    compile 'com.google.firebase:firebase-core:10.2.6'
+    compile 'com.google.firebase:firebase-auth:10.2.6'
+    compile 'com.google.firebase:firebase-crash:10.2.6'
+
+    compile 'com.google.android.gms:play-services-auth:10.2.6'
+
+    kapt 'com.google.dagger:dagger-compiler:2.10'
+    compile 'com.google.dagger:dagger:2.10'
+
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    compile 'com.android.support:appcompat-v7:25.3.1'
+
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'javax.inject:javax.inject:1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
 }
+
+apply plugin: 'com.google.gms.google-services'

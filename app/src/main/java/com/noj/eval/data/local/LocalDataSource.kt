@@ -3,6 +3,7 @@ package com.noj.eval.data.local
 import android.content.Context
 import com.noj.eval.data.EvalDataSource
 import com.noj.eval.data.Local
+import com.noj.eval.model.Group
 import com.noj.eval.model.User
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -11,16 +12,23 @@ import javax.inject.Singleton
 @Local
 class LocalDataSource @Inject internal constructor(val context: Context) : EvalDataSource {
 
-    override fun saveUser(user: User) {
-        TODO("SAVE LOCAL DATABASE")
-    }
+    override var user: User
+        get() = TODO("not implemented")
+        set(value) {}
 
-    override fun saveUserUid(uid: String) {
+    override var userUid: String
+        get() = TODO("not implemented")
+        set(value) {}
+
+    override var groupsCreated: List<Group>
+        get() = TODO("not implemented")
+        set(value) {}
+
+    override var groupsAccepted: List<Group>
+        get() = TODO("not implemented")
+        set(value) {}
+
+    override fun createGroup(group: Group): Group {
         TODO("not implemented")
     }
-
-    override fun getUserUid(): String {
-        TODO("not implemented")
-    }
-
 }

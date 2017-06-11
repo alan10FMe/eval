@@ -1,13 +1,18 @@
 package com.noj.eval.data
 
+import com.noj.eval.model.Group
 import com.noj.eval.model.User
 
 interface EvalDataSource {
 
-    fun saveUser(user: User)
+    var user: User
 
-    fun saveUserUid(uid: String)
+    var userUid: String
 
-    fun getUserUid(): String
+    var groupsCreated: List<Group>
+
+    var groupsAccepted: List<Group>
+
+    fun createGroup(group: Group): Group
 
 }

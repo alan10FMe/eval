@@ -1,6 +1,5 @@
 package com.noj.eval.login
 
-import android.os.RemoteException
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -11,7 +10,7 @@ import javax.inject.Inject
 
 class LoginPresenter @Inject() internal constructor(
         val view: LoginContract.View,
-        var dataSource: EvalRepository
+        val dataSource: EvalRepository
 ) : LoginContract.Presenter {
 
     override fun start() {
@@ -47,9 +46,9 @@ class LoginPresenter @Inject() internal constructor(
     }
 
     override fun validateAndSaveUser(fireBaseUser: FirebaseUser?) {
-        if (dataSource.getUserUid().isBlank()) {
-            dataSource.saveUserUid(fireBaseUser!!.uid)
-            dataSource.saveUser(createUser(fireBaseUser))
+        if (dataSource.userUid.isBlank()) {
+            dataSource.user = createUser(fireBaseUser)
+            dataSource.userUid = fireBaseUser!!.uid
         }
         view.startApplication()
     }

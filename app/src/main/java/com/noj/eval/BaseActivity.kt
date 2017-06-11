@@ -4,7 +4,6 @@ import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import org.jetbrains.anko.indeterminateProgressDialog
-import org.jetbrains.anko.progressDialog
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -25,4 +24,5 @@ open class BaseActivity : AppCompatActivity() {
             dialog.dismiss()
         }
     }
+
 }

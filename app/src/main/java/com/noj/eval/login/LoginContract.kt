@@ -45,4 +45,5 @@ interface LoginContract {
         fun dismissLoadingDialog()
 
     }
+
 }

@@ -8,7 +8,9 @@ class LoginPresenterModule(val view: LoginContract.View) {
 
     @Provides
     fun provideLoginContractView(): LoginContract.View {
+
         return view
+
     }
 
 }

@@ -77,6 +77,7 @@ class LoginActivity : BaseActivity(), LoginContract.View,
     }
 
     override fun startApplication() {
+        dismissLoadingDialog()
         startActivity<HomeActivity>()
         finish()
     }
@@ -87,7 +88,6 @@ class LoginActivity : BaseActivity(), LoginContract.View,
     }
 
     override fun onValidUser() {
-        dismissLoadingDialog()
         presenter.validateAndSaveUser(fireBaseAuth.currentUser)
     }
 
@@ -123,6 +123,11 @@ class LoginActivity : BaseActivity(), LoginContract.View,
 
     override fun dismissLoadingDialog() {
         dismissProgressDialog()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        dismissLoadingDialog()
     }
 
 }

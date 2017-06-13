@@ -6,4 +6,10 @@
 
     <string name="dialog_loading">Espere un momento &#8230;</string>
 
+    <string name="group_created_menu">Creados</string>
+    <string name="group_accepted_menu">Participando</string>
+    <string name="group_dialog_name_label">Nombre</string>
+    <string name="group_dialog_name_hint">Nombre del grupo</string>
+    <string name="group_dialog_create_menu">Crear</string>
+
 </resources>

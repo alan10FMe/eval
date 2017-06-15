@@ -45,3 +45,6 @@ captures/
 
 # Generated files
 env-variables.txt
+
+# Fabric
+fabric.properties

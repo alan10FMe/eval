@@ -1,7 +1,6 @@
 package com.noj.eval.data.remote
 
 import com.noj.eval.data.EvalDataSource
-import com.noj.eval.data.Remote
 import com.noj.eval.model.Group
 import com.noj.eval.model.User
 import org.jetbrains.anko.AnkoLogger
@@ -10,16 +9,13 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-@Remote
-class FakeRemoteDataSource @Inject internal constructor() : EvalDataSource, AnkoLogger {
+class FakeRemoteDataSource @Inject internal constructor() : RemoteData, AnkoLogger {
 
-    override var user: User
-        get() = User(id = 1, name = "Alan Flores", email = "alan10fm@gmail.com")
-        set(value) {}
+    val user = User(id = 1, name = "Alan Flores", email = "alan10fm@gmail.com")
 
-    override var userUid: String
-        get() = TODO("not implemented")
-        set(value) {}
+    override fun createUser(user: User): User {
+        return user
+    }
 
     override var groupsCreated: List<Group>
         get() = listOf(

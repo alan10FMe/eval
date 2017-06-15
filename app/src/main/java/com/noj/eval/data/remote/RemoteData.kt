@@ -1,20 +1,16 @@
-package com.noj.eval.data
+package com.noj.eval.data.remote
 
 import com.noj.eval.model.Group
 import com.noj.eval.model.User
 
-interface EvalDataSource {
+interface RemoteData {
 
-    var user: User
-
-    var userUid: String
+    fun createUser(user: User): User
 
     var groupsCreated: List<Group>
 
     var groupsAccepted: List<Group>
 
     fun createGroup(group: Group): Group
-
-    fun createUser(user: User): User
 
 }

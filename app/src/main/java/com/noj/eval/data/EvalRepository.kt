@@ -1,5 +1,8 @@
 package com.noj.eval.data
 
+import com.noj.eval.data.local.LocalData
+import com.noj.eval.data.remote.RemoteData
+import com.noj.eval.data.sharedpreferences.SharedPreferencesData
 import com.noj.eval.model.Group
 import com.noj.eval.model.User
 import javax.inject.Inject
@@ -7,15 +10,15 @@ import javax.inject.Singleton
 
 @Singleton
 class EvalRepository @Inject internal constructor(
-        private @Remote val remoteDataSource: EvalDataSource,
-        private @Local val localRemoteDataSource: EvalDataSource,
-        private @SharedPreferences val sharedPreferences: EvalDataSource
+        private val remoteDataSource: RemoteData,
+        private val localRemoteDataSource: LocalData,
+        private val sharedPreferences: SharedPreferencesData
 ) : EvalDataSource {
 
     override var user: User
-        get() = remoteDataSource.user
+        get() = sharedPreferences.user
         set(value) {
-            remoteDataSource.user = value
+            sharedPreferences.user = value
         }
 
     override var userUid: String
@@ -38,6 +41,10 @@ class EvalRepository @Inject internal constructor(
 
     override fun createGroup(group: Group): Group {
         return remoteDataSource.createGroup(group)
+    }
+
+    override fun createUser(user: User): User {
+        return remoteDataSource.createUser(user)
     }
 
 }

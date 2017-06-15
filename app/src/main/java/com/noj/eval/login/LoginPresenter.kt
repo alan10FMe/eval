@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class LoginPresenter @Inject() internal constructor(
         val view: LoginContract.View,
-        val dataSource: EvalRepository
+        val repository: EvalRepository
 ) : LoginContract.Presenter {
 
     override fun start() {
@@ -46,9 +46,9 @@ class LoginPresenter @Inject() internal constructor(
     }
 
     override fun validateAndSaveUser(fireBaseUser: FirebaseUser?) {
-        if (dataSource.userUid.isBlank()) {
-            dataSource.user = createUser(fireBaseUser)
-            dataSource.userUid = fireBaseUser!!.uid
+        if (repository.userUid.isBlank()) {
+            repository.user = createUser(fireBaseUser)
+            repository.userUid = fireBaseUser!!.uid
         }
         view.startApplication()
     }

@@ -5,7 +5,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 import com.noj.eval.data.EvalRepository
-import com.noj.eval.model.User
+import com.noj.eval.util.toUser
 import javax.inject.Inject
 
 class LoginPresenter @Inject() internal constructor(
@@ -46,18 +46,8 @@ class LoginPresenter @Inject() internal constructor(
     }
 
     override fun validateAndSaveUser(fireBaseUser: FirebaseUser?) {
-        if (repository.userUid.isBlank()) {
-            repository.user = createUser(fireBaseUser)
-            repository.userUid = fireBaseUser!!.uid
-        }
+        repository.createUser(fireBaseUser.toUser())
         view.startApplication()
-    }
-
-    fun createUser(fireBaseUser: FirebaseUser?): User {
-        return User(
-                uid = fireBaseUser!!.uid,
-                name = fireBaseUser.displayName!!,
-                email = fireBaseUser.email!!)
     }
 
 }

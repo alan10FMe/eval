@@ -5,16 +5,12 @@ import com.noj.eval.model.User
 
 interface EvalDataSource {
 
-    var user: User
-
-    var userUid: String
-
     var groupsCreated: List<Group>
 
     var groupsAccepted: List<Group>
 
-    fun createGroup(group: Group): Group
+    fun createUser(user: User)
 
-    fun createUser(user: User): User
+    fun createGroup(group: Group): Group
 
 }

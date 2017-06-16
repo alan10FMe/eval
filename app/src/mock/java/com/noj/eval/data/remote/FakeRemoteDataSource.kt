@@ -11,29 +11,29 @@ import javax.inject.Singleton
 @Singleton
 class FakeRemoteDataSource @Inject internal constructor() : RemoteData, AnkoLogger {
 
-    val user = User(id = 1, name = "Alan Flores", email = "alan10fm@gmail.com")
+    val fakeUser = User(id = 1, name = "Alan Flores", email = "alan10fm@gmail.com")
 
     override fun createUser(user: User): User {
-        return user
+        return fakeUser
     }
 
     override var groupsCreated: List<Group>
         get() = listOf(
-                Group(2, "Group 2", user, listOfRequesters, listOfParticipants),
-                Group(3, "Group 3", user, listOfRequesters, listOfParticipants),
-                Group(4, "Group 4", user, listOfRequesters, listOfParticipants),
-                Group(5, "Group 5", user, listOfRequesters, listOfParticipants),
-                Group(6, "Group 6", user, listOfRequesters, listOfParticipants),
-                Group(7, "Group 7", user, listOfRequesters, listOfParticipants),
-                Group(8, "Group 8", user, listOfRequesters, listOfParticipants),
-                Group(9, "Group 9", user, listOfRequesters, listOfParticipants),
-                Group(10, "Group 10", user, listOfRequesters, listOfParticipants),
-                Group(11, "Group 11", user, listOfRequesters, listOfParticipants),
-                Group(12, "Group 12", user, listOfRequesters, listOfParticipants),
-                Group(13, "Group 13", user, listOfRequesters, listOfParticipants),
-                Group(14, "Group 14", user, listOfRequesters, listOfParticipants),
-                Group(15, "Group 15", user, listOfRequesters, listOfParticipants),
-                Group(16, "Group 16", user, listOfRequesters, listOfParticipants)
+                Group(2, "Group 2", fakeUser, listOfRequesters, listOfParticipants),
+                Group(3, "Group 3", fakeUser, listOfRequesters, listOfParticipants),
+                Group(4, "Group 4", fakeUser, listOfRequesters, listOfParticipants),
+                Group(5, "Group 5", fakeUser, listOfRequesters, listOfParticipants),
+                Group(6, "Group 6", fakeUser, listOfRequesters, listOfParticipants),
+                Group(7, "Group 7", fakeUser, listOfRequesters, listOfParticipants),
+                Group(8, "Group 8", fakeUser, listOfRequesters, listOfParticipants),
+                Group(9, "Group 9", fakeUser, listOfRequesters, listOfParticipants),
+                Group(10, "Group 10", fakeUser, listOfRequesters, listOfParticipants),
+                Group(11, "Group 11", fakeUser, listOfRequesters, listOfParticipants),
+                Group(12, "Group 12", fakeUser, listOfRequesters, listOfParticipants),
+                Group(13, "Group 13", fakeUser, listOfRequesters, listOfParticipants),
+                Group(14, "Group 14", fakeUser, listOfRequesters, listOfParticipants),
+                Group(15, "Group 15", fakeUser, listOfRequesters, listOfParticipants),
+                Group(16, "Group 16", fakeUser, listOfRequesters, listOfParticipants)
         )
         set(value) {}
 

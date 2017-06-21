@@ -20,7 +20,6 @@ import com.noj.eval.R
 import com.noj.eval.home.HomeActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 class LoginActivity : BaseActivity(), LoginContract.View,
@@ -76,13 +75,11 @@ class LoginActivity : BaseActivity(), LoginContract.View,
     }
 
     override fun startApplication() {
-        dismissLoadingDialog()
         startActivity<HomeActivity>()
         finish()
     }
 
     override fun onInvalidUser() {
-        dismissProgressDialog()
         login_button.visibility = View.VISIBLE
     }
 
@@ -91,11 +88,7 @@ class LoginActivity : BaseActivity(), LoginContract.View,
     }
 
     override fun onConnectionFailed(connectionResult: ConnectionResult) {
-        displayErrorSignUp()
-    }
-
-    override fun displayErrorSignUp() {
-        toast(getString(R.string.login_error_signup))
+        showGeneralError()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -108,7 +101,6 @@ class LoginActivity : BaseActivity(), LoginContract.View,
 
     override fun fireBaseAuthWithGoogle(account: GoogleSignInAccount?) {
         val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
-        dismissLoadingDialog()
         fireBaseAuth.signInWithCredential(credential).addOnCompleteListener(this)
     }
 
@@ -116,17 +108,8 @@ class LoginActivity : BaseActivity(), LoginContract.View,
         presenter.onCompleteAuthentication(result)
     }
 
-    override fun showLoadingDialog() {
-        showProgressDialog(getString(R.string.dialog_loading))
-    }
-
-    override fun dismissLoadingDialog() {
-        dismissProgressDialog()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
-        dismissLoadingDialog()
     }
 
 }

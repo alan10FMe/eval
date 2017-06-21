@@ -1,6 +1,8 @@
 package com.noj.eval
 
-interface BasePresenter {
+interface BasePresenter<T : BaseView> {
+
+    val view: T
 
     fun start()
 

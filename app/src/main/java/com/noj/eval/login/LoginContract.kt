@@ -10,7 +10,7 @@ import com.noj.eval.BaseView
 
 interface LoginContract {
 
-    interface Presenter : BasePresenter {
+    interface Presenter : BasePresenter<View> {
 
         fun validateUser(fireBaseUser: FirebaseUser?)
 
@@ -24,7 +24,7 @@ interface LoginContract {
 
     }
 
-    interface View : BaseView<BasePresenter> {
+    interface View : BaseView {
 
         fun initializeLoginComponents()
 
@@ -36,13 +36,7 @@ interface LoginContract {
 
         fun signInWithGoogle()
 
-        fun displayErrorSignUp()
-
         fun fireBaseAuthWithGoogle(account: GoogleSignInAccount?)
-
-        fun showLoadingDialog()
-
-        fun dismissLoadingDialog()
 
     }
 

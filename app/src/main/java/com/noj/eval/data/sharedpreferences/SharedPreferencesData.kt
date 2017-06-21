@@ -1,6 +1,5 @@
 package com.noj.eval.data.sharedpreferences
 
-import android.preference.PreferenceManager
 import com.noj.eval.model.User
 
 interface SharedPreferencesData {
@@ -12,6 +11,8 @@ interface SharedPreferencesData {
     var userName: String
 
     var userEmail: String
+
+    val user: User
 
     fun storeUserData(user: User)
 

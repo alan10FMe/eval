@@ -6,7 +6,7 @@ import com.noj.eval.model.Group
 
 interface GroupContract {
 
-    interface Presenter : BasePresenter {
+    interface Presenter : BasePresenter<View> {
 
         fun onGroupsCreatedClicked()
 
@@ -20,7 +20,7 @@ interface GroupContract {
 
     }
 
-    interface View : BaseView<GroupContract.Presenter> {
+    interface View : BaseView {
 
         fun displayGroupsCreated(groups: List<Group>)
 

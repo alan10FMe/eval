@@ -2,8 +2,6 @@ package com.noj.eval.data.sharedpreferences
 
 import android.content.Context
 import android.preference.PreferenceManager
-import com.noj.eval.data.EvalDataSource
-import com.noj.eval.model.Group
 import com.noj.eval.model.User
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -40,11 +38,15 @@ class SharedPreferencesDataSource @Inject internal constructor(val context: Cont
             PreferenceManager.getDefaultSharedPreferences(context).edit().putString(KEY_USER_EMAIL, value).apply()
         }
 
+    override val user: User by lazy {
+        User(uid = userUid, id = userId, name = userName, email = userEmail)
+    }
+
     override fun storeUserData(user: User) {
         userUid = user.uid
         userId = user.id
-        userName = userName
-        userEmail = userEmail
+        userName = user.name
+        userEmail = user.email
     }
 
 }

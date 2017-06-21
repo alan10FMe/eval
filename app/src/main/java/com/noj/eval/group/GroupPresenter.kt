@@ -5,36 +5,20 @@ import com.noj.eval.model.Group
 import javax.inject.Inject
 
 class GroupPresenter @Inject() internal constructor(
-        val view: GroupContract.View,
+        override val view: GroupContract.View,
         val repository: EvalRepository
 ) : GroupContract.Presenter {
 
-    private var groupsCreated: MutableList<Group>? = null
-        get() {
-            if (field == null) {
-                field = repository.groupsCreated.toMutableList()
-            }
-            return field
-        }
-
-    private var groupsAccepted: MutableList<Group>? = null
-        get() {
-            if (field == null) {
-                field = repository.groupsAccepted.toMutableList()
-            }
-            return field
-        }
-
     override fun start() {
-        view.displayGroupsCreated(groupsCreated!!)
+        view.displayGroupsCreated(repository.groupsCreated)
     }
 
     override fun onGroupsCreatedClicked() {
-        view.displayGroupsCreated(groupsCreated!!)
+        view.displayGroupsCreated(repository.groupsCreated)
     }
 
     override fun onGroupsAcceptedClicked() {
-        view.displayGroupsAccepted(groupsAccepted!!)
+        view.displayGroupsAccepted(repository.groupsAccepted)
     }
 
     override fun onCreateGroupClicked() {
@@ -42,9 +26,9 @@ class GroupPresenter @Inject() internal constructor(
     }
 
     override fun onSaveClicked(group: Group) {
+        view.showLoading()
         val groupCreated = repository.createGroup(group)
-        groupsCreated?.add(groupCreated)
-        groupsCreated?.sortBy { it.name }
+        view.dismissLoading()
         view.displayGroupCreated(groupCreated)
     }
 

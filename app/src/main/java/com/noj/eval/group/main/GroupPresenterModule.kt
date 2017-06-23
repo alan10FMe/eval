@@ -1,4 +1,4 @@
-package com.noj.eval.group
+package com.noj.eval.group.main
 
 import dagger.Module
 import dagger.Provides

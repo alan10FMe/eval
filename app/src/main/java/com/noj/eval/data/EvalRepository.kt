@@ -16,11 +16,11 @@ class EvalRepository @Inject internal constructor(
 ) : EvalDataSource {
 
     override val groupsCreated: MutableList<Group> by lazy {
-        remoteDataSource.getGroupsCreated(sharedPreferences.user).toMutableList()
+        remoteDataSource.getGroupsCreated(sharedPreferences.userId).toMutableList()
     }
 
     override val groupsAccepted: MutableList<Group> by lazy {
-        remoteDataSource.getGroupsAccepted(sharedPreferences.user).toMutableList()
+        remoteDataSource.getGroupsAccepted(sharedPreferences.userId).toMutableList()
     }
 
     override fun createUser(user: User) {
@@ -30,11 +30,22 @@ class EvalRepository @Inject internal constructor(
         }
     }
 
-    override fun createGroup(group: Group): Group {
+    override fun createGroup(group: Group) {
         val groupCreated = remoteDataSource.createGroup(group.copy(creator = sharedPreferences.user))
         groupsCreated.add(groupCreated)
         groupsCreated.sortBy { it.name }
-        return groupCreated
+    }
+
+    override fun getGroup(groupId: Long): Group {
+        return remoteDataSource.getGroup(sharedPreferences.userId, groupId)
+    }
+
+    override fun acceptUser(userId: Long, groupId: Long) {
+        remoteDataSource.acceptUser(userId, groupId)
+    }
+
+    override fun rejectUser(userId: Long, groupId: Long) {
+        remoteDataSource.rejectUser(userId, groupId)
     }
 
 }

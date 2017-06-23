@@ -11,6 +11,12 @@ interface EvalDataSource {
 
     fun createUser(user: User)
 
-    fun createGroup(group: Group): Group
+    fun createGroup(group: Group)
+
+    fun getGroup(groupId: Long): Group
+
+    fun acceptUser(userId: Long, groupId: Long)
+
+    fun rejectUser(userId: Long, groupId: Long)
 
 }

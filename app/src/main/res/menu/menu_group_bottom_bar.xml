@@ -6,12 +6,14 @@
         android:id="@+id/groups_item_created"
         android:enabled="true"
         android:title="@string/group_created_menu"
+        android:icon="@drawable/ic_owner"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/groups_item_accepted"
         android:enabled="true"
         android:title="@string/group_accepted_menu"
+        android:icon="@drawable/ic_participant"
         app:showAsAction="always" />
 
 </menu>

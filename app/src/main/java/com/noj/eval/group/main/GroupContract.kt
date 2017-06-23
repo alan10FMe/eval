@@ -1,4 +1,4 @@
-package com.noj.eval.group
+package com.noj.eval.group.main
 
 import com.noj.eval.BasePresenter
 import com.noj.eval.BaseView
@@ -16,7 +16,7 @@ interface GroupContract {
 
         fun onSaveClicked(group: Group)
 
-        fun onGroupClicked(group: Group)
+        fun onGroupClicked(groupId: Long)
 
     }
 
@@ -28,9 +28,9 @@ interface GroupContract {
 
         fun displayCreateScreen()
 
-        fun displayGroupCreated(group: Group)
+        fun displayGroupCreated(name: String)
 
-        fun displayGroupDetail(group: Group)
+        fun displayGroupDetail(groupId: Long)
 
     }
 

@@ -7,9 +7,9 @@ interface RemoteData {
 
     fun createUser(user: User): User
 
-    var groupsCreated: List<Group>
+    fun getGroupsCreated(user: User): List<Group>
 
-    var groupsAccepted: List<Group>
+    fun getGroupsAccepted(user: User): List<Group>
 
     fun createGroup(group: Group): Group
 

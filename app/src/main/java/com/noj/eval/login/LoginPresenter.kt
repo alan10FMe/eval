@@ -9,7 +9,7 @@ import com.noj.eval.util.toUser
 import javax.inject.Inject
 
 class LoginPresenter @Inject() internal constructor(
-        val view: LoginContract.View,
+        override val view: LoginContract.View,
         val repository: EvalRepository
 ) : LoginContract.Presenter {
 
@@ -31,6 +31,7 @@ class LoginPresenter @Inject() internal constructor(
 
     override fun processResultSignUp(result: GoogleSignInResult) {
         if (result.isSuccess) {
+            view.showLoading()
             view.fireBaseAuthWithGoogle(result.signInAccount)
         } else {
             view.onInvalidUser()
@@ -41,12 +42,14 @@ class LoginPresenter @Inject() internal constructor(
         if (result.isSuccessful) {
             view.onValidUser()
         } else {
+            view.dismissLoading()
             view.onInvalidUser()
         }
     }
 
     override fun validateAndSaveUser(fireBaseUser: FirebaseUser?) {
         repository.createUser(fireBaseUser.toUser())
+        view.dismissLoading()
         view.startApplication()
     }
 

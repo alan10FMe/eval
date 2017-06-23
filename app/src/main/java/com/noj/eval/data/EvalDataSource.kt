@@ -5,9 +5,9 @@ import com.noj.eval.model.User
 
 interface EvalDataSource {
 
-    var groupsCreated: List<Group>
+    val groupsCreated: MutableList<Group>
 
-    var groupsAccepted: List<Group>
+    val groupsAccepted: MutableList<Group>
 
     fun createUser(user: User)
 

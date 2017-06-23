@@ -4,25 +4,30 @@ import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import org.jetbrains.anko.indeterminateProgressDialog
+import org.jetbrains.anko.toast
 
-open class BaseActivity : AppCompatActivity() {
+open class BaseActivity : AppCompatActivity(), BaseView {
 
-    lateinit var dialog: ProgressDialog
+    val dialog: ProgressDialog by lazy {
+        indeterminateProgressDialog("")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dialog = indeterminateProgressDialog("")
     }
 
-    fun showProgressDialog(message: String) {
-        dialog.setMessage(message)
+    override fun showLoading() {
         dialog.show()
     }
 
-    fun dismissProgressDialog() {
+    override fun dismissLoading() {
         if (dialog.isShowing) {
             dialog.dismiss()
         }
+    }
+
+    override fun showGeneralError() {
+        toast("This was not supposed to happen")
     }
 
 }

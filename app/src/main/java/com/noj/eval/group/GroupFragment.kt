@@ -2,14 +2,13 @@ package com.noj.eval.group
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import com.noj.eval.BaseFragment
 import com.noj.eval.EvalApplication
-
 import com.noj.eval.R
 import com.noj.eval.model.Group
 import com.noj.eval.util.disableBackArrow
@@ -19,7 +18,7 @@ import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.toast
 import javax.inject.Inject
 
-class GroupFragment : Fragment(), GroupContract.View,
+class GroupFragment : BaseFragment(), GroupContract.View,
         BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     @Inject

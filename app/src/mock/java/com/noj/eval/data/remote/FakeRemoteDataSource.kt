@@ -1,6 +1,5 @@
 package com.noj.eval.data.remote
 
-import com.noj.eval.data.EvalDataSource
 import com.noj.eval.model.Group
 import com.noj.eval.model.User
 import org.jetbrains.anko.AnkoLogger
@@ -11,43 +10,39 @@ import javax.inject.Singleton
 @Singleton
 class FakeRemoteDataSource @Inject internal constructor() : RemoteData, AnkoLogger {
 
-    val fakeUser = User(id = 1, name = "Alan Flores", email = "alan10fm@gmail.com")
-
     override fun createUser(user: User): User {
-        return fakeUser
+        return User(id = 1, name = "Alan Flores", email = "alan10fm@gmail.com")
     }
 
-    override var groupsCreated: List<Group>
-        get() = listOf(
-                Group(2, "Group 2", fakeUser, listOfRequesters, listOfParticipants),
-                Group(3, "Group 3", fakeUser, listOfRequesters, listOfParticipants),
-                Group(4, "Group 4", fakeUser, listOfRequesters, listOfParticipants),
-                Group(5, "Group 5", fakeUser, listOfRequesters, listOfParticipants),
-                Group(6, "Group 6", fakeUser, listOfRequesters, listOfParticipants),
-                Group(7, "Group 7", fakeUser, listOfRequesters, listOfParticipants),
-                Group(8, "Group 8", fakeUser, listOfRequesters, listOfParticipants),
-                Group(9, "Group 9", fakeUser, listOfRequesters, listOfParticipants),
-                Group(10, "Group 10", fakeUser, listOfRequesters, listOfParticipants),
-                Group(11, "Group 11", fakeUser, listOfRequesters, listOfParticipants),
-                Group(12, "Group 12", fakeUser, listOfRequesters, listOfParticipants),
-                Group(13, "Group 13", fakeUser, listOfRequesters, listOfParticipants),
-                Group(14, "Group 14", fakeUser, listOfRequesters, listOfParticipants),
-                Group(15, "Group 15", fakeUser, listOfRequesters, listOfParticipants),
-                Group(16, "Group 16", fakeUser, listOfRequesters, listOfParticipants)
-        )
-        set(value) {}
+    override fun getGroupsCreated(user: User): List<Group> {
+        return mutableListOf(
+                Group(2, "Group 2", user, listOfRequesters, listOfParticipants),
+                Group(3, "Group 3", user, listOfRequesters, listOfParticipants),
+                Group(4, "Group 4", user, listOfRequesters, listOfParticipants),
+                Group(5, "Group 5", user, listOfRequesters, listOfParticipants),
+                Group(6, "Group 6", user, listOfRequesters, listOfParticipants),
+                Group(7, "Group 7", user, listOfRequesters, listOfParticipants),
+                Group(8, "Group 8", user, listOfRequesters, listOfParticipants),
+                Group(9, "Group 9", user, listOfRequesters, listOfParticipants),
+                Group(10, "Group 10", user, listOfRequesters, listOfParticipants),
+                Group(11, "Group 11", user, listOfRequesters, listOfParticipants),
+                Group(12, "Group 12", user, listOfRequesters, listOfParticipants),
+                Group(13, "Group 13", user, listOfRequesters, listOfParticipants),
+                Group(14, "Group 14", user, listOfRequesters, listOfParticipants),
+                Group(15, "Group 15", user, listOfRequesters, listOfParticipants),
+                Group(16, "Group 16", user, listOfRequesters, listOfParticipants))
+    }
 
-    override var groupsAccepted: List<Group>
-        get() = listOf(
+    override fun getGroupsAccepted(user: User): List<Group> {
+        return mutableListOf(
                 Group(id = 7, name = "Group 7", creator = User(id = 7, name = "Creator 7")),
                 Group(id = 8, name = "Group 8", creator = User(id = 8, name = "Creator 8")),
                 Group(id = 9, name = "Group 9", creator = User(id = 9, name = "Creator 9")),
                 Group(id = 10, name = "Group 10", creator = User(id = 10, name = "Creator 10")),
-                Group(id = 11, name = "Group 11", creator = User(id = 11, name = "Creator 11"))
-        )
-        set(value) {}
+                Group(id = 11, name = "Group 11", creator = User(id = 11, name = "Creator 11")))
+    }
 
-    var listOfParticipants: List<User>
+    private var listOfParticipants: List<User>
         get() = listOf(
                 User(id = 100, name = "Participant 100", email = "participant100@gmail.com"),
                 User(id = 101, name = "Participant 101", email = "participant101@gmail.com"),
@@ -67,7 +62,7 @@ class FakeRemoteDataSource @Inject internal constructor() : RemoteData, AnkoLogg
         )
         set(value) {}
 
-    var listOfRequesters: List<User>
+    private var listOfRequesters: List<User>
         get() = listOf(
                 User(id = 200, name = "Requester 200", email = "requester200@gmail.com"),
                 User(id = 201, name = "Requester 201", email = "requester201@gmail.com"),
@@ -79,7 +74,8 @@ class FakeRemoteDataSource @Inject internal constructor() : RemoteData, AnkoLogg
         set(value) {}
 
     override fun createGroup(group: Group): Group {
-        return group.copy(id = Random().nextLong())
+        val groupCreated = group.copy(id = Random().nextLong())
+        return groupCreated
     }
 
 }

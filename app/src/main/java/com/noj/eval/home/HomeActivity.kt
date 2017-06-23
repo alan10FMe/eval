@@ -1,12 +1,12 @@
 package com.noj.eval.home
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import com.noj.eval.BaseActivity
 import com.noj.eval.R
 import com.noj.eval.group.GroupFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

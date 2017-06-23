@@ -6,13 +6,13 @@ import javax.inject.Inject
 
 class GroupPresenter @Inject() internal constructor(
         val view: GroupContract.View,
-        val dataSource: EvalRepository
+        val repository: EvalRepository
 ) : GroupContract.Presenter {
 
     private var groupsCreated: MutableList<Group>? = null
         get() {
             if (field == null) {
-                field = dataSource.groupsCreated.toMutableList()
+                field = repository.groupsCreated.toMutableList()
             }
             return field
         }
@@ -20,7 +20,7 @@ class GroupPresenter @Inject() internal constructor(
     private var groupsAccepted: MutableList<Group>? = null
         get() {
             if (field == null) {
-                field = dataSource.groupsAccepted.toMutableList()
+                field = repository.groupsAccepted.toMutableList()
             }
             return field
         }
@@ -42,7 +42,7 @@ class GroupPresenter @Inject() internal constructor(
     }
 
     override fun onSaveClicked(group: Group) {
-        val groupCreated = dataSource.createGroup(group.copy(creator = dataSource.user))
+        val groupCreated = repository.createGroup(group)
         groupsCreated?.add(groupCreated)
         groupsCreated?.sortBy { it.name }
         view.displayGroupCreated(groupCreated)

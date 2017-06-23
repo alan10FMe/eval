@@ -16,13 +16,13 @@ class RemoteDataSource @Inject internal constructor() : RemoteData {
     override var groupsCreated: List<Group>
         get() = emptyList()
         set(value) {
-            error("Method not allowed")
+            error("You should not try to invoke this method")
         }
 
     override var groupsAccepted: List<Group>
         get() = emptyList()
         set(value) {
-            error("Method not allowed")
+            error("You should not try to invoke this method")
         }
 
     override fun createGroup(group: Group): Group {

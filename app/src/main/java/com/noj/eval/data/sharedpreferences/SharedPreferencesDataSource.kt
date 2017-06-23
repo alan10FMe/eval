@@ -11,16 +11,40 @@ import javax.inject.Singleton
 @Singleton
 class SharedPreferencesDataSource @Inject internal constructor(val context: Context) : SharedPreferencesData {
 
-    val USER_UID = "user_uid"
-
-    override var user: User
-        get() = User(id = 1, name = "Alan Flores", email = "alan10fm@gmail.com")
-        set(value) {}
+    private val KEY_USER_UID = "user_uid"
+    private val KEY_USER_ID = "user_id"
+    private val KEY_USER_NAME = "user_name"
+    private val KEY_USER_EMAIL = "user_email"
 
     override var userUid: String
-        get() = PreferenceManager.getDefaultSharedPreferences(context).getString(USER_UID, "")
+        get() = PreferenceManager.getDefaultSharedPreferences(context).getString(KEY_USER_UID, "")
         set(value) {
-            PreferenceManager.getDefaultSharedPreferences(context).edit().putString(USER_UID, value).apply()
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putString(KEY_USER_UID, value).apply()
         }
+
+    override var userId: Long
+        get() = PreferenceManager.getDefaultSharedPreferences(context).getLong(KEY_USER_ID, 0)
+        set(value) {
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putLong(KEY_USER_ID, value).apply()
+        }
+
+    override var userName: String
+        get() = PreferenceManager.getDefaultSharedPreferences(context).getString(KEY_USER_NAME, "")
+        set(value) {
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putString(KEY_USER_NAME, value).apply()
+        }
+
+    override var userEmail: String
+        get() = PreferenceManager.getDefaultSharedPreferences(context).getString(KEY_USER_EMAIL, "")
+        set(value) {
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putString(KEY_USER_EMAIL, value).apply()
+        }
+
+    override fun storeUserData(user: User) {
+        userUid = user.uid
+        userId = user.id
+        userName = userName
+        userEmail = userEmail
+    }
 
 }

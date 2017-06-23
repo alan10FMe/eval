@@ -15,36 +15,31 @@ class EvalRepository @Inject internal constructor(
         private val sharedPreferences: SharedPreferencesData
 ) : EvalDataSource {
 
-    override var user: User
-        get() = sharedPreferences.user
-        set(value) {
-            sharedPreferences.user = value
-        }
-
-    override var userUid: String
-        get() = sharedPreferences.userUid
-        set(value) {
-            sharedPreferences.userUid = value
-        }
-
     override var groupsCreated: List<Group>
         get() = remoteDataSource.groupsCreated
         set(value) {
-            TODO("not implemented")
+            error("You should not try to invoke this method")
         }
 
     override var groupsAccepted: List<Group>
         get() = remoteDataSource.groupsAccepted
         set(value) {
-            TODO("not implemented")
+            error("You should not try to invoke this method")
         }
 
-    override fun createGroup(group: Group): Group {
-        return remoteDataSource.createGroup(group)
+    override fun createUser(user: User) {
+        if (sharedPreferences.userId == 0L) {
+            val newUser = remoteDataSource.createUser(user)
+            sharedPreferences.storeUserData(newUser)
+        }
     }
 
-    override fun createUser(user: User): User {
-        return remoteDataSource.createUser(user)
+    override fun createGroup(group: Group): Group {
+        return remoteDataSource.createGroup(
+                group.copy(
+                        creator = User(id = sharedPreferences.userId)
+                )
+        )
     }
 
 }

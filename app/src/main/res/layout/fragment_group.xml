@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_background"
-    tools:context="com.noj.eval.group.GroupFragment">
+    tools:context="com.noj.eval.group.main.GroupFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -17,14 +17,6 @@
             android:layout_height="match_parent"
             android:overScrollMode="never" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/create_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/two"
-            android:src="@android:drawable/ic_menu_add" />
-
     </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
@@ -33,7 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@android:color/white"
-        app:itemTextColor="@color/primary_dark"
-        app:menu="@menu/group_bottom_bar" />
+        app:menu="@menu/menu_group_bottom_bar" />
 
 </RelativeLayout>

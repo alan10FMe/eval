@@ -1,4 +1,4 @@
-package com.noj.eval.group
+package com.noj.eval.group.main
 
 import android.app.Dialog
 import android.os.Bundle
@@ -51,7 +51,7 @@ class GroupCreateDialog(
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.create_group_dialog, menu)
+        inflater.inflate(R.menu.menu_create_group_dialog, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 

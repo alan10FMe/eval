@@ -1,4 +1,4 @@
-package com.noj.eval.group
+package com.noj.eval.group.main
 
 import com.noj.eval.data.EvalRepository
 import com.noj.eval.model.Group
@@ -27,13 +27,13 @@ class GroupPresenter @Inject() internal constructor(
 
     override fun onSaveClicked(group: Group) {
         view.showLoading()
-        val groupCreated = repository.createGroup(group)
+        repository.createGroup(group)
         view.dismissLoading()
-        view.displayGroupCreated(groupCreated)
+        view.displayGroupCreated(group.name)
     }
 
-    override fun onGroupClicked(group: Group) {
-        view.displayGroupDetail(group)
+    override fun onGroupClicked(groupId: Long) {
+        view.displayGroupDetail(groupId)
     }
 
 }

@@ -11,5 +11,14 @@
     <string name="group_dialog_name_label">Nombre</string>
     <string name="group_dialog_name_hint">Nombre del grupo</string>
     <string name="group_dialog_create_menu">Crear</string>
+    <string name="group_created">Grupo %1$s creado</string>
+
+    <string name="admin_gruop_requesters">Solicitando</string>
+    <string name="admin_gruop_participants">Participantes</string>
+    <string name="admin_gruop_accept">Aceptar</string>
+    <string name="admin_gruop_reject">Rechazar</string>
+    <string name="admin_gruop_user_accepted">%1$s aceptado</string>
+    <string name="admin_gruop_user_rejected">%1$s rechazado</string>
+    <string name="admin_gruop_user_removed">%1$s removido</string>
 
 </resources>

@@ -1,4 +1,4 @@
-package com.noj.eval.group
+package com.noj.eval.group.main
 
 import com.noj.eval.data.EvalRepositoryComponent
 import com.noj.eval.util.ActivityScoped

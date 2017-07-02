@@ -9,7 +9,6 @@ import com.noj.eval.model.Group
 import com.noj.eval.util.enableBackArrow
 import com.noj.eval.util.hideKeyboard
 import kotlinx.android.synthetic.main.dialog_create_group.*
-import org.jetbrains.anko.support.v4.act
 
 class GroupCreateDialog(
         var listenerSuccess: (Group) -> Unit
@@ -33,7 +32,7 @@ class GroupCreateDialog(
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        act.hideKeyboard()
+        hideKeyboard()
         when (item.itemId) {
             android.R.id.home -> fragmentManager.popBackStack()
             R.id.create_group_menu -> {

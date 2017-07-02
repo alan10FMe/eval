@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class LoginPresenter @Inject() internal constructor(
         override val view: LoginContract.View,
-        val repository: EvalRepository
+        private val repository: EvalRepository
 ) : LoginContract.Presenter {
 
     override fun start() {

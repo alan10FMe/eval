@@ -4,6 +4,7 @@ import com.noj.eval.data.local.LocalData
 import com.noj.eval.data.remote.RemoteData
 import com.noj.eval.data.sharedpreferences.SharedPreferencesData
 import com.noj.eval.model.Group
+import com.noj.eval.model.Search
 import com.noj.eval.model.User
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -46,6 +47,14 @@ class EvalRepository @Inject internal constructor(
 
     override fun rejectUser(userId: Long, groupId: Long) {
         remoteDataSource.rejectUser(userId, groupId)
+    }
+
+    override fun searchGroupsByEmail(search: Search): List<Group> {
+        return remoteDataSource.searchGroupsByEmail(search)
+    }
+
+    override fun requestAccess(groupId: Long) {
+        remoteDataSource.requestAccess(sharedPreferences.userId, groupId)
     }
 
 }

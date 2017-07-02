@@ -7,8 +7,8 @@ import javax.inject.Inject
 
 class AdminGroupPresenter @Inject() internal constructor(
         override val view: AdminGroupContract.View,
-        val repository: EvalRepository,
-        val groupId: Long
+        private val repository: EvalRepository,
+        private val groupId: Long
 ) : AdminGroupContract.Presenter {
 
     lateinit var group: Group

@@ -1,6 +1,7 @@
 package com.noj.eval.data.remote
 
 import com.noj.eval.model.Group
+import com.noj.eval.model.Search
 import com.noj.eval.model.User
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -33,6 +34,14 @@ class RemoteDataSource @Inject internal constructor() : RemoteData {
     }
 
     override fun rejectUser(userId: Long, groupId: Long) {
+
+    }
+
+    override fun searchGroupsByEmail(search: Search): List<Group> {
+        return emptyList()
+    }
+
+    override fun requestAccess(userId: Long, groupId: Long) {
 
     }
 

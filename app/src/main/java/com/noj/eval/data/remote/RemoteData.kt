@@ -1,6 +1,7 @@
 package com.noj.eval.data.remote
 
 import com.noj.eval.model.Group
+import com.noj.eval.model.Search
 import com.noj.eval.model.User
 
 interface RemoteData {
@@ -18,5 +19,9 @@ interface RemoteData {
     fun acceptUser(userId: Long, groupId: Long)
 
     fun rejectUser(userId: Long, groupId: Long)
+
+    fun searchGroupsByEmail(search: Search): List<Group>
+
+    fun requestAccess(userId: Long, groupId: Long)
 
 }

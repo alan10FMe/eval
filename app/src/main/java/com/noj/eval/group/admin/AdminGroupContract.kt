@@ -6,16 +6,6 @@ import com.noj.eval.model.User
 
 interface AdminGroupContract {
 
-    interface Presenter : BasePresenter<View> {
-
-        fun acceptUser(userId: Long)
-
-        fun rejectUser(userId: Long)
-
-        fun removeParticipant(userId: Long)
-
-    }
-
     interface View : BaseView {
 
         fun displayRequesters(requesters: List<User>)
@@ -31,6 +21,16 @@ interface AdminGroupContract {
         fun displayUserRejected(user: User)
 
         fun displayUserRemoved(user: User)
+
+    }
+
+    interface Presenter : BasePresenter<View> {
+
+        fun acceptUser(userId: Long)
+
+        fun rejectUser(userId: Long)
+
+        fun removeParticipant(userId: Long)
 
     }
 

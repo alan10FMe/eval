@@ -7,10 +7,6 @@ import dagger.Provides
 class GroupPresenterModule(val view: GroupContract.View) {
 
     @Provides
-    fun provideGroupContractView(): GroupContract.View {
-
-        return view
-
-    }
+    fun provideGroupContractView() = view
 
 }

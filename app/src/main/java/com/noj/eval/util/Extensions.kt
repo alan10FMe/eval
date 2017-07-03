@@ -10,12 +10,18 @@ import android.support.v7.app.AppCompatActivity
 import android.text.Html
 import android.view.inputmethod.InputMethodManager
 import com.google.firebase.auth.FirebaseUser
+import com.noj.eval.EvalApplication
+import com.noj.eval.data.EvalRepositoryComponent
 import com.noj.eval.model.User
 import org.jetbrains.anko.support.v4.act
 
 /**
  * Extensions for Fragments
  */
+
+val Fragment.evalRepositoryComponent: EvalRepositoryComponent
+    get() = act.evalRepositoryComponent
+
 fun Fragment.disableBackArrow() {
     (act as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
     (act as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(false)
@@ -30,9 +36,17 @@ fun Fragment.snack(message: String) {
     act.snack(message)
 }
 
+fun Fragment.hideKeyboard() {
+    act.hideKeyboard()
+}
+
 /**
  * Extensions for Activities
  */
+
+val Activity.evalRepositoryComponent: EvalRepositoryComponent
+    get() = (this.application as EvalApplication).evalRepositoryComponent
+
 fun Activity.hideKeyboard() {
     if (currentFocus != null) {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -41,7 +55,7 @@ fun Activity.hideKeyboard() {
 }
 
 fun Activity.snack(message: String) {
-    Snackbar.make(findViewById(android.R.id.content), Html.fromHtml(message), Snackbar.LENGTH_SHORT).show()
+    Snackbar.make(findViewById(android.R.id.content), Html.fromHtml(message), Snackbar.LENGTH_LONG).show()
 }
 
 /**

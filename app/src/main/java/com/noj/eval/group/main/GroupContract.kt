@@ -6,20 +6,6 @@ import com.noj.eval.model.Group
 
 interface GroupContract {
 
-    interface Presenter : BasePresenter<View> {
-
-        fun onGroupsCreatedClicked()
-
-        fun onGroupsAcceptedClicked()
-
-        fun onCreateGroupClicked()
-
-        fun onSaveClicked(group: Group)
-
-        fun onGroupClicked(groupId: Long)
-
-    }
-
     interface View : BaseView {
 
         fun displayGroupsCreated(groups: List<Group>)
@@ -28,9 +14,27 @@ interface GroupContract {
 
         fun displayCreateScreen()
 
+        fun displaySearchScreen()
+
         fun displayGroupCreated(name: String)
 
         fun displayGroupDetail(groupId: Long)
+
+    }
+
+    interface Presenter : BasePresenter<View> {
+
+        fun onGroupsCreatedClicked()
+
+        fun onGroupsAcceptedClicked()
+
+        fun onCreateGroupClicked()
+
+        fun onSearchGroupClicked()
+
+        fun onSaveClicked(group: Group)
+
+        fun onGroupClicked(groupId: Long)
 
     }
 

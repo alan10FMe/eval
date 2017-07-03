@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class GroupPresenter @Inject() internal constructor(
         override val view: GroupContract.View,
-        val repository: EvalRepository
+        private val repository: EvalRepository
 ) : GroupContract.Presenter {
 
     override fun start() {
@@ -23,6 +23,10 @@ class GroupPresenter @Inject() internal constructor(
 
     override fun onCreateGroupClicked() {
         view.displayCreateScreen()
+    }
+
+    override fun onSearchGroupClicked() {
+        view.displaySearchScreen()
     }
 
     override fun onSaveClicked(group: Group) {

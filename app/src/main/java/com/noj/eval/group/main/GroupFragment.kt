@@ -5,14 +5,14 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import com.noj.eval.BaseFragment
-import com.noj.eval.EvalApplication
 import com.noj.eval.R
 import com.noj.eval.group.admin.AdminGroupFragment
+import com.noj.eval.group.search.SearchGroupFragment
 import com.noj.eval.model.Group
 import com.noj.eval.util.disableBackArrow
+import com.noj.eval.util.evalRepositoryComponent
 import com.noj.eval.util.snack
 import kotlinx.android.synthetic.main.fragment_group.*
-import org.jetbrains.anko.support.v4.act
 import org.jetbrains.anko.support.v4.ctx
 import javax.inject.Inject
 
@@ -21,7 +21,8 @@ class GroupFragment : BaseFragment(), GroupContract.View,
 
     @Inject
     lateinit var presenter: GroupPresenter
-    lateinit var createMenuItem: MenuItem
+    var createMenuItem: MenuItem? = null
+    var searchMenuItem: MenuItem? = null
     val adapter: GroupAdapter
 
     init {
@@ -33,7 +34,7 @@ class GroupFragment : BaseFragment(), GroupContract.View,
         DaggerGroupComponent
                 .builder()
                 .groupPresenterModule(GroupPresenterModule(this))
-                .evalRepositoryComponent((act.application as EvalApplication).evalRepositoryComponent)
+                .evalRepositoryComponent(evalRepositoryComponent)
                 .build()
                 .inject(this)
     }
@@ -44,30 +45,35 @@ class GroupFragment : BaseFragment(), GroupContract.View,
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        disableBackArrow()
         groups_recycler.layoutManager = LinearLayoutManager(ctx)
         groups_recycler.adapter = adapter
         bottom_navigation.setOnNavigationItemSelectedListener(this)
         presenter.start()
     }
 
-    override fun onStart() {
-        super.onStart()
-        disableBackArrow()
+    override fun onResume() {
+        super.onResume()
+        onNavigationItemSelected(bottom_navigation.menu.findItem(bottom_navigation.selectedItemId))
     }
 
     override fun displayGroupsCreated(groups: List<Group>) {
         adapter.replaceAll(groups, this::groupClicked)
+        createMenuItem?.isVisible = true
+        searchMenuItem?.isVisible = false
     }
 
     override fun displayGroupsAccepted(groups: List<Group>) {
         adapter.replaceAll(groups, {})
+        createMenuItem?.isVisible = false
+        searchMenuItem?.isVisible = true
     }
 
     override fun displayGroupCreated(name: String) {
-        snack("Grupo $name created")
+        snack(getString(R.string.group_created, name))
     }
 
-    fun groupClicked(groupId: Long) {
+    private fun groupClicked(groupId: Long) {
         presenter.onGroupClicked(groupId)
     }
 
@@ -76,46 +82,63 @@ class GroupFragment : BaseFragment(), GroupContract.View,
         replaceFragment(fragmentAdminGroup)
     }
 
+    override fun displaySearchScreen() {
+        val fragmentSearchGroup = SearchGroupFragment.newInstance()
+        replaceFragment(fragmentSearchGroup)
+    }
+
     override fun displayCreateScreen() {
         replaceFragment(GroupCreateDialog(this::onSaveDialogClicked))
     }
 
-    fun onSaveDialogClicked(group: Group) {
+    private fun onSaveDialogClicked(group: Group) {
         presenter.onSaveClicked(group)
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
-            R.id.groups_item_created -> {
-                presenter.onGroupsCreatedClicked()
-                createMenuItem.isVisible = true
-            }
-            R.id.groups_item_accepted -> {
-                presenter.onGroupsAcceptedClicked()
-                createMenuItem.isVisible = false
-            }
-            else -> throw IllegalArgumentException("Operation not supported")
+            R.id.groups_item_created -> presenter.onGroupsCreatedClicked()
+            R.id.groups_item_accepted -> presenter.onGroupsAcceptedClicked()
+            else -> error("Operation not supported")
         }
         return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_groups, menu)
+        createMenuItem = menu.getItem(0)
+        searchMenuItem = menu.getItem(1)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        when (bottom_navigation.selectedItemId) {
+            R.id.groups_item_created -> {
+                createMenuItem?.isVisible = true
+                searchMenuItem?.isVisible = false
+            }
+            R.id.groups_item_accepted -> {
+                createMenuItem?.isVisible = false
+                searchMenuItem?.isVisible = true
+            }
+            else -> error("Operation not supported")
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.create_group_item -> presenter.onCreateGroupClicked()
+            R.id.search_group_item -> presenter.onSearchGroupClicked()
+            else -> error("Not supported operation")
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
         fun newInstance(): GroupFragment {
             return GroupFragment()
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_groups, menu)
-        createMenuItem = menu.getItem(0)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.create_group_item -> presenter.onCreateGroupClicked()
-        }
-        return super.onOptionsItemSelected(item)
     }
 
 }

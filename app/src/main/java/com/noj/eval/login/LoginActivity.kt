@@ -15,9 +15,9 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.noj.eval.BaseActivity
-import com.noj.eval.EvalApplication
 import com.noj.eval.R
 import com.noj.eval.home.HomeActivity
+import com.noj.eval.util.evalRepositoryComponent
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 import javax.inject.Inject
@@ -39,7 +39,7 @@ class LoginActivity : BaseActivity(), LoginContract.View,
         DaggerLoginComponent
                 .builder()
                 .loginPresenterModule(LoginPresenterModule(this))
-                .evalRepositoryComponent((application as EvalApplication).evalRepositoryComponent)
+                .evalRepositoryComponent(evalRepositoryComponent)
                 .build()
                 .inject(this)
 

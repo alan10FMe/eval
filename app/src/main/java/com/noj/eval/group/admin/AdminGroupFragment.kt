@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.noj.eval.BaseFragment
-import com.noj.eval.EvalApplication
 import com.noj.eval.R
 import com.noj.eval.model.User
 import com.noj.eval.util.enableBackArrow
+import com.noj.eval.util.evalRepositoryComponent
 import com.noj.eval.util.snack
 import kotlinx.android.synthetic.main.fragment_admin_group.*
-import org.jetbrains.anko.support.v4.act
 import org.jetbrains.anko.support.v4.ctx
 import javax.inject.Inject
 
@@ -34,7 +33,7 @@ class AdminGroupFragment : BaseFragment(), AdminGroupContract.View {
         super.onCreate(savedInstanceState)
         DaggerAdminGroupComponent.builder()
                 .adminGroupPresenterModule(AdminGroupPresenterModule(this, arguments.getLong(ARG_GROUP_ID)))
-                .evalRepositoryComponent((act.application as EvalApplication).evalRepositoryComponent)
+                .evalRepositoryComponent(evalRepositoryComponent)
                 .build().inject(this)
     }
 

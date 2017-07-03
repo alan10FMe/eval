@@ -7,11 +7,7 @@ import dagger.Provides
 class AdminGroupPresenterModule(val view: AdminGroupContract.View, val groupId: Long) {
 
     @Provides
-    fun provideAdminGroupContractView(): AdminGroupContract.View {
-
-        return view
-
-    }
+    fun provideAdminGroupContractView() = view
 
     @Provides
     fun provideGroupId() = groupId

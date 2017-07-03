@@ -3,6 +3,7 @@ package com.noj.eval
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.MenuItem
+import com.noj.eval.util.hideKeyboard
 
 open class BaseFragment : Fragment(), BaseView {
 
@@ -35,7 +36,10 @@ open class BaseFragment : Fragment(), BaseView {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> fragmentManager.popBackStack()
+            android.R.id.home -> {
+                fragmentManager.popBackStack()
+                hideKeyboard()
+            }
         }
         return super.onOptionsItemSelected(item)
     }

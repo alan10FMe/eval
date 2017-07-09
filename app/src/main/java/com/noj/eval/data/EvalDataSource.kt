@@ -1,6 +1,7 @@
 package com.noj.eval.data
 
 import com.noj.eval.model.Group
+import com.noj.eval.model.Post
 import com.noj.eval.model.Search
 import com.noj.eval.model.User
 
@@ -23,5 +24,13 @@ interface EvalDataSource {
     fun searchGroupsByEmail(search: Search): List<Group>
 
     fun requestAccess(groupId: Long)
+
+    fun createPosts(post: Post): Post
+
+    fun createAnswer(postId: Long, answer: Post): Post
+
+    fun getPosts(groupId: Long): List<Post>
+
+    fun getPost(postId: Long): Post
 
 }

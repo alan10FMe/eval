@@ -20,6 +20,8 @@ interface GroupContract {
 
         fun displayGroupDetail(groupId: Long)
 
+        fun displayGroupPosts(groupId: Long)
+
     }
 
     interface Presenter : BasePresenter<View> {
@@ -34,7 +36,9 @@ interface GroupContract {
 
         fun onSaveClicked(group: Group)
 
-        fun onGroupClicked(groupId: Long)
+        fun onGroupCreatedClicked(groupId: Long)
+
+        fun onGroupParticipantClicked(groupId: Long)
 
     }
 

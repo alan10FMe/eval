@@ -9,6 +9,7 @@ import com.noj.eval.R
 import com.noj.eval.group.admin.AdminGroupFragment
 import com.noj.eval.group.search.SearchGroupFragment
 import com.noj.eval.model.Group
+import com.noj.eval.post.main.PostsFragment
 import com.noj.eval.util.disableBackArrow
 import com.noj.eval.util.evalRepositoryComponent
 import com.noj.eval.util.snack
@@ -26,7 +27,7 @@ class GroupFragment : BaseFragment(), GroupContract.View,
     val adapter: GroupAdapter
 
     init {
-        adapter = GroupAdapter(mutableListOf<Group>(), this::groupClicked)
+        adapter = GroupAdapter(mutableListOf<Group>(), this::groupCreatedClicked)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,13 +59,13 @@ class GroupFragment : BaseFragment(), GroupContract.View,
     }
 
     override fun displayGroupsCreated(groups: List<Group>) {
-        adapter.replaceAll(groups, this::groupClicked)
+        adapter.replaceAll(groups, this::groupCreatedClicked)
         createMenuItem?.isVisible = true
         searchMenuItem?.isVisible = false
     }
 
     override fun displayGroupsAccepted(groups: List<Group>) {
-        adapter.replaceAll(groups, {})
+        adapter.replaceAll(groups, this::groupParticipantClicked)
         createMenuItem?.isVisible = false
         searchMenuItem?.isVisible = true
     }
@@ -73,13 +74,20 @@ class GroupFragment : BaseFragment(), GroupContract.View,
         snack(getString(R.string.group_created, name))
     }
 
-    private fun groupClicked(groupId: Long) {
-        presenter.onGroupClicked(groupId)
+    private fun groupCreatedClicked(groupId: Long) {
+        presenter.onGroupCreatedClicked(groupId)
+    }
+
+    private fun groupParticipantClicked(groupId: Long) {
+        presenter.onGroupParticipantClicked(groupId)
     }
 
     override fun displayGroupDetail(groupId: Long) {
-        val fragmentAdminGroup = AdminGroupFragment.newInstance(groupId)
-        replaceFragment(fragmentAdminGroup)
+        replaceFragment(AdminGroupFragment.newInstance(groupId))
+    }
+
+    override fun displayGroupPosts(groupId: Long) {
+        replaceFragment(PostsFragment.newInstance(groupId))
     }
 
     override fun displaySearchScreen() {

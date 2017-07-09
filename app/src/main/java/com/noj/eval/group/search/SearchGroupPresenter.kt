@@ -5,7 +5,7 @@ import com.noj.eval.model.Group
 import com.noj.eval.model.Search
 import javax.inject.Inject
 
-class SearchGroupPresenter @Inject() internal constructor(
+class SearchGroupPresenter @Inject internal constructor(
         override val view: SearchGroupContract.View,
         private val repository: EvalRepository
 ) : SearchGroupContract.Presenter {

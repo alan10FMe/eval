@@ -19,8 +19,8 @@ class AdminGroupFragment : BaseFragment(), AdminGroupContract.View {
 
     @Inject
     lateinit var presenter: AdminGroupPresenter
-    val requestersAdapter: AdminGroupAdapter
-    val participantsAdapter: AdminGroupAdapter
+    private val requestersAdapter: AdminGroupAdapter
+    private val participantsAdapter: AdminGroupAdapter
 
     init {
         requestersAdapter =

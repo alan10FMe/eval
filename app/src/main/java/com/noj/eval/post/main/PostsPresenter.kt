@@ -29,4 +29,8 @@ class PostsPresenter @Inject internal constructor(
         view.displayPosts(posts)
     }
 
+    override fun onPostClicked(post: Post) {
+        view.navigateToPost(post.id)
+    }
+
 }

@@ -14,6 +14,8 @@ interface PostsContract {
 
         fun displayPostCreated(title: String)
 
+        fun navigateToPost(postId: Long)
+
     }
 
     interface Presenter : BasePresenter<View> {
@@ -21,6 +23,8 @@ interface PostsContract {
         fun onCreatePostClicked()
 
         fun onSavePostClicked(title: String, message: String)
+
+        fun onPostClicked(post: Post)
 
     }
 

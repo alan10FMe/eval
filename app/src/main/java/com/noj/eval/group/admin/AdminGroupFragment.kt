@@ -10,6 +10,7 @@ import com.noj.eval.R
 import com.noj.eval.model.User
 import com.noj.eval.util.enableBackArrow
 import com.noj.eval.util.evalRepositoryComponent
+import com.noj.eval.util.initialize
 import com.noj.eval.util.snack
 import kotlinx.android.synthetic.main.fragment_admin_group.*
 import org.jetbrains.anko.support.v4.ctx
@@ -44,10 +45,8 @@ class AdminGroupFragment : BaseFragment(), AdminGroupContract.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         enableBackArrow()
-        requesters_recycler.layoutManager = LinearLayoutManager(ctx)
-        requesters_recycler.adapter = requestersAdapter
-        participants_recycler.layoutManager = LinearLayoutManager(ctx)
-        participants_recycler.adapter = participantsAdapter
+        requesters_recycler.initialize(requestersAdapter, ctx)
+        participants_recycler.initialize(participantsAdapter, ctx)
         presenter.start()
     }
 

@@ -6,12 +6,12 @@ import android.view.*
 import com.noj.eval.BaseFragment
 import com.noj.eval.R
 import com.noj.eval.model.Post
+import com.noj.eval.post.detail.PostDetailFragment
 import com.noj.eval.util.enableBackArrow
 import com.noj.eval.util.evalRepositoryComponent
 import com.noj.eval.util.snack
 import kotlinx.android.synthetic.main.fragment_posts.*
 import org.jetbrains.anko.support.v4.ctx
-import org.jetbrains.anko.support.v4.toast
 import javax.inject.Inject
 
 class PostsFragment : BaseFragment(), PostsContract.View {
@@ -21,7 +21,10 @@ class PostsFragment : BaseFragment(), PostsContract.View {
     private val postsAdapter: PostsAdapter
 
     init {
-        postsAdapter = PostsAdapter(mutableListOf<Post>(), this::onPostClicked)
+        postsAdapter = PostsAdapter(mutableListOf<Post>()) {
+            post ->
+            presenter.onPostClicked(post)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,8 +52,8 @@ class PostsFragment : BaseFragment(), PostsContract.View {
         postsAdapter.addAll(posts)
     }
 
-    private fun onPostClicked(post: Post) {
-        toast(post.title)
+    override fun navigateToPost(postId: Long) {
+        replaceFragment(PostDetailFragment.newInstance(postId))
     }
 
     override fun displayCreateScreen() {

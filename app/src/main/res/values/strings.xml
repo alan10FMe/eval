@@ -2,9 +2,10 @@
 
     <string name="app_name">Eval</string>
 
-    <string name="login_error_signup">Hubo un error por favor intente de nuevo.</string>
-
     <string name="dialog_loading">Espere un momento &#8230;</string>
+    <string name="create_menu">Crear</string>
+
+    <string name="login_error_signup">Hubo un error por favor intente de nuevo.</string>
 
     <string name="group_created_menu">Creados</string>
     <string name="group_accepted_menu">Participando</string>
@@ -24,5 +25,12 @@
 
     <string name="search_group_query_hint">Email del creador</string>
     <string name="search_group_access_requested">Acceso solicitado a grupo %1$s</string>
+
+    <string name="posts_create_menu">Crear post</string>
+    <string name="posts_dialog_create_title">Título</string>
+    <string name="posts_dialog_create_title_hint">Pon un título para el post</string>
+    <string name="posts_dialog_create_messsage">Mensaje</string>
+    <string name="posts_dialog_create_messsage_hint">Pon el mensaje del post</string>
+    <string name="posts_created">Post %1$s creado</string>
 
 </resources>

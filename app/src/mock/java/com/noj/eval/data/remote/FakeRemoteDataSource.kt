@@ -1,6 +1,7 @@
 package com.noj.eval.data.remote
 
 import com.noj.eval.model.Group
+import com.noj.eval.model.Post
 import com.noj.eval.model.Search
 import com.noj.eval.model.User
 import org.jetbrains.anko.AnkoLogger
@@ -27,7 +28,7 @@ class FakeRemoteDataSource @Inject internal constructor() : RemoteData, AnkoLogg
     }
 
 
-    override fun createGroup(group: Group): Group {
+    override fun createGroup(userId: Long, group: Group): Group {
         val groupCreated = group.copy(id = Random().nextLong())
         return groupCreated
     }
@@ -54,6 +55,29 @@ class FakeRemoteDataSource @Inject internal constructor() : RemoteData, AnkoLogg
 
     override fun requestAccess(userId: Long, groupId: Long) {
         info("Requesting access for user: $userId in Group: $groupId")
+    }
+
+    override fun createPosts(userId: Long, post: Post): Post {
+        return post.copy(id = Random().nextLong())
+    }
+
+    override fun createAnswer(userId: Long, postId: Long, answer: Post): Post {
+        return answer.copy(id = Random().nextLong())
+    }
+
+    override fun getPosts(userId: Long, groupId: Long): List<Post> {
+        return listOfPosts
+    }
+
+    override fun getPost(userId: Long, postId: Long): Post {
+        return Post(
+                id = postId,
+                title = "Tarea",
+                message = "Hacer un resumen del libro",
+                createdDate = "25-05-2017 10:00",
+                answers = listOfAnswers,
+                readers = listOfParticipants
+        )
     }
 
     private val listOfGroupsCreated: List<Group>
@@ -144,6 +168,30 @@ class FakeRemoteDataSource @Inject internal constructor() : RemoteData, AnkoLogg
     private val groupsUserTwo: List<Group>
         get() = listOf(
                 Group(id = 1, name = "Group 1", creator = User(id = 1, name = "Creator 2", email = "2@gmail.com"))
+        )
+
+    private val listOfPosts: List<Post>
+        get() = listOf(
+                Post(id = 1, title = "Tarea", message = "Hacer un resumen del libro", createdDate = "30-05-2017 10:10"),
+                Post(id = 2, title = "Comprar", message = "Llevar las monografias", createdDate = "29-05-2017 14:16"),
+                Post(id = 3, title = "No ir", message = "No hay clases manana", createdDate = "28-05-2017 17:30"),
+                Post(id = 4, title = "Tarea", message = "Dibujar un arbol", createdDate = "27-05-2017 9:58"),
+                Post(id = 5, title = "Excursion", message = "Pedir permiso para ir", createdDate = "26-05-2017 11:16"),
+                Post(id = 6, title = "Tarea", message = "Hacer las operaciones", createdDate = "25-05-2017 18:12"),
+                Post(id = 7, title = "Junta", message = "Junta de padres", createdDate = "24-05-2017 23:23"),
+                Post(id = 8, title = "Tarde", message = "Se retrasa la clase 15 minutos", createdDate = "23-05-2017 17:50")
+        )
+
+    private val listOfAnswers: List<Post>
+        get() = listOf(
+                Post(id = 1, message = "Cuantas hojas deben ser?", createdDate = "25-05-2017 10:10"),
+                Post(id = 2, message = "De las primeras 25", createdDate = "25-05-2017 10:12"),
+                Post(id = 3, message = "Se pueden poner fotos?", createdDate = "25-05-2017 10:14"),
+                Post(id = 4, message = "Si pero no cuentan como hojas", createdDate = "25-05-2017 10:16"),
+                Post(id = 5, message = "Puedo escoger otro libro?", createdDate = "25-05-2017 10:18"),
+                Post(id = 6, message = "No, solo el visto en clase", createdDate = "25-05-2017 10:20"),
+                Post(id = 7, message = "Se cambia la entrega para manana", createdDate = "25-05-2017 10:22"),
+                Post(id = 8, message = "Perfecto!! mas tiempo", createdDate = "25-05-2017 10:24")
         )
 
 }

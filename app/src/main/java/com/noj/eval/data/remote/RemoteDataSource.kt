@@ -1,6 +1,7 @@
 package com.noj.eval.data.remote
 
 import com.noj.eval.model.Group
+import com.noj.eval.model.Post
 import com.noj.eval.model.Search
 import com.noj.eval.model.User
 import javax.inject.Inject
@@ -21,7 +22,7 @@ class RemoteDataSource @Inject internal constructor() : RemoteData {
         return emptyList()
     }
 
-    override fun createGroup(group: Group): Group {
+    override fun createGroup(userId: Long, group: Group): Group {
         return Group()
     }
 
@@ -43,6 +44,22 @@ class RemoteDataSource @Inject internal constructor() : RemoteData {
 
     override fun requestAccess(userId: Long, groupId: Long) {
 
+    }
+
+    override fun createPosts(userId: Long, post: Post): Post {
+        return Post()
+    }
+
+    override fun createAnswer(userId: Long, postId: Long, answer: Post): Post {
+        return Post()
+    }
+
+    override fun getPosts(userId: Long, groupId: Long): List<Post> {
+        return emptyList()
+    }
+
+    override fun getPost(userId: Long, postId: Long): Post {
+        return Post()
     }
 
 }

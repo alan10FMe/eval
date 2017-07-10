@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.noj.eval.BaseActivity
 import com.noj.eval.R
 import com.noj.eval.group.main.GroupFragment
+import com.noj.eval.post.main.PostsFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : BaseActivity() {

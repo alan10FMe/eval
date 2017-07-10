@@ -5,7 +5,7 @@ import com.noj.eval.model.Group
 import com.noj.eval.model.User
 import javax.inject.Inject
 
-class AdminGroupPresenter @Inject() internal constructor(
+class AdminGroupPresenter @Inject internal constructor(
         override val view: AdminGroupContract.View,
         private val repository: EvalRepository,
         private val groupId: Long

@@ -4,7 +4,7 @@ import com.noj.eval.data.EvalRepository
 import com.noj.eval.model.Group
 import javax.inject.Inject
 
-class GroupPresenter @Inject() internal constructor(
+class GroupPresenter @Inject internal constructor(
         override val view: GroupContract.View,
         private val repository: EvalRepository
 ) : GroupContract.Presenter {
@@ -36,8 +36,12 @@ class GroupPresenter @Inject() internal constructor(
         view.displayGroupCreated(group.name)
     }
 
-    override fun onGroupClicked(groupId: Long) {
+    override fun onGroupCreatedClicked(groupId: Long) {
         view.displayGroupDetail(groupId)
+    }
+
+    override fun onGroupParticipantClicked(groupId: Long) {
+        view.displayGroupPosts(groupId)
     }
 
 }

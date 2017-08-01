@@ -7,6 +7,7 @@ data class Post(
         val title: String = "",
         val message: String = "",
         val createdDate: String = "",
+        val creator: User = User(),
         val readers: List<User> = emptyList(),
         val answers: List<Post> = emptyList()
 ) : Serializable

@@ -10,5 +10,6 @@
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
     <color name="primary_background">#EEEEEE</color>
+    <color name="answers_background">#FAFAFA</color>
 
 </resources>

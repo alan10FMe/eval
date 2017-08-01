@@ -72,8 +72,8 @@ class FakeRemoteDataSource @Inject internal constructor() : RemoteData, AnkoLogg
     override fun getPost(userId: Long, postId: Long): Post {
         return Post(
                 id = postId,
-                title = "Tarea",
-                message = "Hacer un resumen del libro",
+                title = "Tarea para examen",
+                message = "Hacer un resumen del libro que se vio en clase esta semana",
                 createdDate = "25-05-2017 10:00",
                 answers = listOfAnswers,
                 readers = listOfParticipants
@@ -188,10 +188,7 @@ class FakeRemoteDataSource @Inject internal constructor() : RemoteData, AnkoLogg
                 Post(id = 2, message = "De las primeras 25", createdDate = "25-05-2017 10:12"),
                 Post(id = 3, message = "Se pueden poner fotos?", createdDate = "25-05-2017 10:14"),
                 Post(id = 4, message = "Si pero no cuentan como hojas", createdDate = "25-05-2017 10:16"),
-                Post(id = 5, message = "Puedo escoger otro libro?", createdDate = "25-05-2017 10:18"),
-                Post(id = 6, message = "No, solo el visto en clase", createdDate = "25-05-2017 10:20"),
-                Post(id = 7, message = "Se cambia la entrega para manana", createdDate = "25-05-2017 10:22"),
-                Post(id = 8, message = "Perfecto!! mas tiempo", createdDate = "25-05-2017 10:24")
+                Post(id = 5, message = "Puedo escoger otro libro?", createdDate = "25-05-2017 10:18")
         )
 
 }

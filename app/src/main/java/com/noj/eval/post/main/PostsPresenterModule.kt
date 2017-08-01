@@ -11,4 +11,5 @@ class PostsPresenterModule(val view: PostsContract.View, val groupId: Long) {
 
     @Provides
     fun provideGroupId() = groupId
+
 }

@@ -73,7 +73,7 @@ class EvalRepository @Inject internal constructor(
     }
 
     override fun getPost(postId: Long): Post {
-        return getPost(postId)
+        return remoteDataSource.getPost(sharedPreferences.userId, postId)
     }
 
 }

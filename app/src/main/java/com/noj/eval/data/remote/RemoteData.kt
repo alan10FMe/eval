@@ -1,5 +1,6 @@
 package com.noj.eval.data.remote
 
+import com.noj.eval.data.remote.impl.ViewCallBackResponse
 import com.noj.eval.model.Group
 import com.noj.eval.model.Post
 import com.noj.eval.model.Search
@@ -7,7 +8,7 @@ import com.noj.eval.model.User
 
 interface RemoteData {
 
-    fun createUser(user: User): User
+    fun createUser(user: User, callback: ViewCallBackResponse<User>)
 
     fun getGroupsCreated(userId: Long): List<Group>
 

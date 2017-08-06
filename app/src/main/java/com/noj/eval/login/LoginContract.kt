@@ -12,7 +12,7 @@ interface LoginContract {
 
     interface Presenter : BasePresenter<View> {
 
-        fun validateUser(fireBaseUser: FirebaseUser?)
+        fun start(fireBaseUser: FirebaseUser?)
 
         fun signIn()
 
@@ -25,6 +25,8 @@ interface LoginContract {
     }
 
     interface View : BaseView {
+
+        fun initializeView()
 
         fun initializeLoginComponents()
 

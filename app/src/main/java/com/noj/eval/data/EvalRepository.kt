@@ -2,6 +2,7 @@ package com.noj.eval.data
 
 import com.noj.eval.data.local.LocalData
 import com.noj.eval.data.remote.RemoteData
+import com.noj.eval.data.remote.impl.ViewCallBackResponse
 import com.noj.eval.data.sharedpreferences.SharedPreferencesData
 import com.noj.eval.model.Group
 import com.noj.eval.model.Post
@@ -17,6 +18,9 @@ class EvalRepository @Inject internal constructor(
         private val sharedPreferences: SharedPreferencesData
 ) : EvalDataSource {
 
+    override val user: User
+        get() = sharedPreferences.user
+
     override val groupsCreated: MutableList<Group> by lazy {
         remoteDataSource.getGroupsCreated(sharedPreferences.userId).toMutableList()
     }
@@ -25,11 +29,12 @@ class EvalRepository @Inject internal constructor(
         remoteDataSource.getGroupsAccepted(sharedPreferences.userId).toMutableList()
     }
 
-    override fun createUser(user: User) {
-        if (sharedPreferences.userId == 0L) {
-            val newUser = remoteDataSource.createUser(user)
-            sharedPreferences.storeUserData(newUser)
-        }
+    override fun createUser(user: User, callback: ViewCallBackResponse<User>) {
+        remoteDataSource.createUser(user, callback)
+    }
+
+    override fun storeUserData(user: User) {
+        sharedPreferences.storeUserData(user)
     }
 
     override fun createGroup(group: Group) {

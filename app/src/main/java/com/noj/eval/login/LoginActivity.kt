@@ -34,7 +34,6 @@ class LoginActivity : BaseActivity(), LoginContract.View,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
 
         DaggerLoginComponent
                 .builder()
@@ -43,16 +42,15 @@ class LoginActivity : BaseActivity(), LoginContract.View,
                 .build()
                 .inject(this)
 
-        presenter.start()
+        fireBaseAuth = FirebaseAuth.getInstance()
+        presenter.start(fireBaseAuth.currentUser)
+    }
 
+    override fun initializeView() {
+        setContentView(R.layout.activity_login)
         login_button.setOnClickListener {
             presenter.signIn()
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        presenter.validateUser(fireBaseAuth.currentUser)
     }
 
     override fun initializeLoginComponents() {
@@ -65,8 +63,6 @@ class LoginActivity : BaseActivity(), LoginContract.View,
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignIn)
                 .build()
-
-        fireBaseAuth = FirebaseAuth.getInstance()
     }
 
     override fun signInWithGoogle() {

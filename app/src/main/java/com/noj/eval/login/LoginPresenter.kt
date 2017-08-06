@@ -5,6 +5,8 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 import com.noj.eval.data.EvalRepository
+import com.noj.eval.data.remote.impl.ViewCallBackResponse
+import com.noj.eval.model.User
 import com.noj.eval.util.toUser
 import javax.inject.Inject
 
@@ -14,14 +16,17 @@ class LoginPresenter @Inject() internal constructor(
 ) : LoginContract.Presenter {
 
     override fun start() {
-        view.initializeLoginComponents()
+        // No implementation
     }
 
-    override fun validateUser(fireBaseUser: FirebaseUser?) {
-        if (fireBaseUser != null) {
-            view.onValidUser()
+    override fun start(fireBaseUser: FirebaseUser?) {
+        view.showLoading()
+        if (fireBaseUser != null && repository.user.id!! > 0L) {
+            view.startApplication()
         } else {
-            view.onInvalidUser()
+            view.initializeView()
+            view.initializeLoginComponents()
+            view.dismissLoading()
         }
     }
 
@@ -48,9 +53,10 @@ class LoginPresenter @Inject() internal constructor(
     }
 
     override fun validateAndSaveUser(fireBaseUser: FirebaseUser?) {
-        repository.createUser(fireBaseUser.toUser())
-        view.dismissLoading()
-        view.startApplication()
+        repository.createUser(fireBaseUser.toUser(), ViewCallBackResponse<User>(view) {
+            repository.storeUserData(it!!)
+            view.startApplication()
+        })
     }
 
 }

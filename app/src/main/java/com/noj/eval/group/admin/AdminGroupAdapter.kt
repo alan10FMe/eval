@@ -48,10 +48,10 @@ class AdminGroupAdapter(
                  rejectListener: (Long) -> Unit) = with(itemView) {
             user_name_text.text = user.name
             user_email_text.text = user.email
-            reject_button.setOnClickListener { rejectListener(user.id) }
+            reject_button.setOnClickListener { rejectListener(user.id!!) }
             if (isRequesting) {
                 accept_button.visibility = View.VISIBLE
-                accept_button.setOnClickListener { acceptListener(user.id) }
+                accept_button.setOnClickListener { acceptListener(user.id!!) }
             } else {
                 accept_button.visibility = View.GONE
             }

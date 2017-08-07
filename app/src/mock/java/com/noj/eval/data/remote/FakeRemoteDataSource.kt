@@ -1,11 +1,14 @@
 package com.noj.eval.data.remote
 
+import com.noj.eval.data.remote.impl.ViewCallBackResponse
 import com.noj.eval.model.Group
 import com.noj.eval.model.Post
 import com.noj.eval.model.Search
 import com.noj.eval.model.User
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -15,8 +18,8 @@ class FakeRemoteDataSource @Inject internal constructor() : RemoteData, AnkoLogg
 
     val user = User(id = 1, name = "Alan Flores", email = "alan10fm@gmail.com")
 
-    override fun createUser(user: User): User {
-        return user
+    override fun createUser(user: User, callback: ViewCallBackResponse<User>) {
+        callback.mockResponse(this.user)
     }
 
     override fun getGroupsCreated(userId: Long): List<Group> {

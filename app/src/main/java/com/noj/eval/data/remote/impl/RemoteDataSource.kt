@@ -1,17 +1,22 @@
-package com.noj.eval.data.remote
+package com.noj.eval.data.remote.impl
 
+import com.noj.eval.data.remote.RemoteData
+import com.noj.eval.data.remote.ServiceInterface
 import com.noj.eval.model.Group
 import com.noj.eval.model.Post
 import com.noj.eval.model.Search
 import com.noj.eval.model.User
+import retrofit2.Call
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RemoteDataSource @Inject internal constructor() : RemoteData {
+class RemoteDataSource @Inject internal constructor(
+        private val serviceInterface: ServiceInterface
+) : RemoteData {
 
-    override fun createUser(user: User): User {
-        return User()
+    override fun createUser(user: User, callback: ViewCallBackResponse<User>) {
+        serviceInterface.createUser(user).enqueViewCallback(callback)
     }
 
     override fun getGroupsCreated(userId: Long): List<Group> {
@@ -61,5 +66,9 @@ class RemoteDataSource @Inject internal constructor() : RemoteData {
     override fun getPost(userId: Long, postId: Long): Post {
         return Post()
     }
+}
 
+private fun <T> Call<T>.enqueViewCallback(callback: ViewCallBackResponse<T>) {
+    callback.onStart()
+    this.enqueue(callback)
 }

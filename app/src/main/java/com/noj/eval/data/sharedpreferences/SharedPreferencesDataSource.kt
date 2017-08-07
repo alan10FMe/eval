@@ -44,7 +44,7 @@ class SharedPreferencesDataSource @Inject internal constructor(val context: Cont
 
     override fun storeUserData(user: User) {
         userUid = user.uid
-        userId = user.id
+        userId = user.id!!
         userName = user.name
         userEmail = user.email
     }

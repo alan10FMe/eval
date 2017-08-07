@@ -10,7 +10,10 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.Html
+
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
+import com.crashlytics.android.Crashlytics
 import com.google.firebase.auth.FirebaseUser
 import com.noj.eval.EvalApplication
 import com.noj.eval.data.EvalRepositoryComponent
@@ -77,4 +80,13 @@ fun FirebaseUser?.toUser(): User {
 fun RecyclerView.initialize(adapter: RecyclerView.Adapter<*>, context: Context) {
     this.layoutManager = LinearLayoutManager(context)
     this.adapter = adapter
+}
+
+/**
+ * Extensions for Log
+ */
+fun Log.trackException(message: String, throwable: Throwable) {
+    Log.e("EvalError", message)
+    Crashlytics.log(message)
+    Crashlytics.logException(throwable)
 }
